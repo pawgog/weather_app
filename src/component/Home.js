@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { changeFormatDate } from './Function';
 import LabelTop from './LabelTop';
 import ForecastList from './ForecastList';
+import { changeFormatDate } from './Function';
+import '../styles/_index.scss';
 
 function Home() {
   // const [allData, setData] = useState([]);
@@ -42,10 +43,12 @@ function Home() {
   // console.log(allData, forecast, currentWeather);
 
   return (
-    <>
-      <LabelTop cityData={cityData} cityWeather={currentWeather} />
-      <ForecastList forecastList={forecast} />
-    </>
+    <div className="weather-app-home">
+      <div className="weather-app-home__content">
+        <LabelTop cityData={cityData} cityWeather={currentWeather} />
+        <ForecastList forecastList={forecast} />        
+      </div>
+    </div>
   );
 }
 

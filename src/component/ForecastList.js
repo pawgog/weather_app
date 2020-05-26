@@ -7,7 +7,7 @@ function ForecastList({ forecastList }) {
   return (
     <>
       {forecastList.map((weather) => {
-        return <div key={weather.dt}>
+        return <div className="weather-app-forecast" key={weather.dt}>
         <p>{weather.dt_txt}</p>
         <p>{changeTemperatureToCelsius(weather.main.temp)}</p>
         </div>;
