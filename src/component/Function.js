@@ -1,4 +1,4 @@
-const changeFormatDate = (value) => {
+export const changeFormatDate = (value) => {
   const getForecastDate = value.filter((val) => {
     let forecastHour = new Date(val.dt * 1000).getHours();
     return forecastHour === 14;
@@ -37,4 +37,6 @@ const changeFormatDate = (value) => {
   return addDay;
 };
 
-export default changeFormatDate
+export const changeTemperatureToCelsius = (temp) => {
+  return `${Math.round(temp - 273.15)}°`
+}

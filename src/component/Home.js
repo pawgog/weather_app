@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import changeFormatDate from './Function';
+import { changeFormatDate } from './Function';
+import LabelTop from './LabelTop';
+import ForecastList from './ForecastList';
 
 function Home() {
-  const [allData, setData] = useState([]);
+  // const [allData, setData] = useState([]);
+  const [cityData, setCity] = useState({name: ''});
+  const [currentWeather, setCurrent] = useState({main: {temp: 0}});
   const [forecast, setForecast] = useState([]);
-  const [currentWeather, setCurrent] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -13,7 +16,8 @@ function Home() {
         `https://api.openweathermap.org/data/2.5/forecast?q=London&appid=${process.env.REACT_APP_WEATHER_KEY}`
       )
         .then((result) => {
-          setData(result.data);
+          // setData(result.data);
+          setCity(result.data.city)
           setForecast(changeFormatDate(result.data.list));
           setCurrentWeather(result.data.list);
         })
@@ -39,9 +43,8 @@ function Home() {
 
   return (
     <>
-      {forecast.map((weather) => {
-        return <p key={weather.dt}>{weather.dt_txt}</p>;
-      })}
+      <LabelTop cityData={cityData} cityWeather={currentWeather} />
+      <ForecastList forecastList={forecast} />
     </>
   );
 }
