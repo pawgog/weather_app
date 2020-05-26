@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react';
+
 export const changeFormatDate = (value) => {
   const getForecastDate = value.filter((val) => {
     let forecastHour = new Date(val.dt * 1000).getHours();
@@ -39,4 +41,22 @@ export const changeFormatDate = (value) => {
 
 export const changeTemperatureToCelsius = (temp) => {
   return `${Math.round(temp - 273.15)}°`
+}
+
+export const useInterval = (callback, delay) => {
+  const savedCallback = useRef();
+
+  useEffect(() => {
+    savedCallback.current = callback;
+  }, [callback]);
+
+  useEffect(() => {
+    function tick() {
+      savedCallback.current();
+    }
+    if (delay !== null) {
+      let id = setInterval(tick, delay);
+      return () => clearInterval(id);
+    }
+  }, [delay]);
 }
