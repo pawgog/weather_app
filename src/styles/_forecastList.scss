@@ -1,9 +1,29 @@
 .weather-app-forecast {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   width: 100%;
   margin: 5px 0;
   padding: 15px 10px;
   border-radius: 5px;
   background-color: #818181;
+  text-transform: uppercase;
+  &__day {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    & > p {
+      margin: 10px 15px;
+      font-size: 1.8rem;
+    }
+  }
+  &__weather {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    & > p {
+      font-size: 0.8rem;
+    }
+  }
 }
