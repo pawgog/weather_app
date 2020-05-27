@@ -7,6 +7,10 @@ If I had more time I could add more animation for forecast component, adjust app
 ### Instalation
 
 - git clone repository
+
+- go to OpenWeather website and register
+- copy paste your key in your local enviroment or just in fetch data url
+
 - go to app folder
 
 - `$ npm install`
