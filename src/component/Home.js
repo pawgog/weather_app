@@ -6,7 +6,7 @@ import { changeFormatDate } from './Function';
 import '../styles/_index.scss';
 
 function Home() {
-  const [cityData, setCity] = useState({name: ''});
+  const [cityData, setCity] = useState({});
   const [currentWeather, setCurrent] = useState({main: {temp: 0}});
   const [forecast, setForecast] = useState([]);
   const [errorMessage, setErrorMessage] = useState('')

@@ -11,7 +11,7 @@ function ForecastList({ forecastList }) {
             <p>{changeTemperatureToCelsius(weather.main.temp)}</p>
           </div>
           <div className="weather-app-forecast__weather">
-            <img src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}.png`} alt=""></img>
+            <img src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}.png`} alt={weather.weather[0].main}></img>
             <p>{weather.weather[0].description}</p>          
           </div>
         </div>;

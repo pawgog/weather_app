@@ -37,7 +37,7 @@ function LabelTop({ cityData, cityWeather, errorMessage, fetchDataFn }) {
         <div className="weather-app-label__progress-bar">
           <span>Reloading in {progressMinute}s</span>
           <div className="weather-app-label__progress-bar__frame">
-            <div className="weather-app-label__progress-bar__slide" style={progressBar}></div>
+            <div className="weather-app-label__progress-bar__slide" style={progressBar}><span></span></div>
           </div>
           <span className={
             errorMessage !== '' ? "weather-app-label__progress-bar__error--show" : "weather-app-label__progress-bar__error--hide"
