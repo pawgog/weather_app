@@ -6,6 +6,7 @@ function LabelTop({ cityData, cityWeather, errorMessage, fetchDataFn }) {
   const [progressMinute, setProgressMinute] = useState(60);
   const [progressValue, setProgress] = useState(0);
   const progressBar = {width: `${progressValue}%`}
+  const currentTemperature = changeTemperatureToCelsius(cityWeather.main.temp)
 
   useInterval(() => {
   let oneMinute = 0
@@ -24,15 +25,13 @@ function LabelTop({ cityData, cityWeather, errorMessage, fetchDataFn }) {
     setCurrentHour(`${date.getHours() < 10 ? '0' : ''}${date.getHours()}:${date.getMinutes() < 10 ? '0' : ''}${date.getMinutes()} GMT`)
   }, 1000);
 
-  const currentTemperature = changeTemperatureToCelsius(cityWeather.main.temp)
-
   return (
     <div className="weather-app-label">
       <div className="weather-app-label__content">
         <div className="weather-app-label__city-detail">
           <div>{ cityData.name }</div>
           <div>{ currentHour }</div>
-          <div>{ currentTemperature }</div>          
+          <div>{ currentTemperature }</div>
         </div>
         <div className="weather-app-label__progress-bar">
           <span>Reloading in {progressMinute}s</span>

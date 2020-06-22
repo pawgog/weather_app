@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 import LabelTop from './LabelTop';
 import ForecastList from './ForecastList';
@@ -6,54 +6,62 @@ import Spinner from './Spinner'
 import { changeFormatDate } from './Function';
 import '../styles/_index.scss';
 
-function Home() {
-  const [cityData, setCity] = useState({});
-  const [currentWeather, setCurrent] = useState({main: {temp: 0}});
-  const [forecast, setForecast] = useState([]);
-  const [errorMessage, setErrorMessage] = useState('')
-  const [spinnerActive, setSpinnerActive] = useState(true)
-
-    const fetchData = useCallback(async () => {
-     await axios.get(
-      `https://api.openweathermap.org/data/2.5/forecast?q=London&appid=${process.env.REACT_APP_WEATHER_KEY}`
-    )
-      .then((result) => {
-        setErrorMessage('')
-        setCity(result.data.city)
-        setForecast(changeFormatDate(result.data.list));
-        setCurrentWeather(result.data.list);
-        setTimeout(() => {
-          setSpinnerActive(false)
-        }, 1000);
-      })
-      .catch((error) => {
-        console.log(error.response);
-        setErrorMessage(`${error.response.data.message} request failed - displaying recent data`)
-      });
-  },[]);
-
-  useEffect(() => {
-    fetchData();
-  },[fetchData]);
-
-  const setCurrentWeather = (val) => {
-    setCurrent(val.shift());
+class Home extends Component {
+  state = {
+    cityData: {},
+    currentWeather: {},
+    forecast: [],
+    spinnerActive: true,
+    errorMessage: '',
   };
 
-  return (
-    <>
-    {spinnerActive ? (
-      <Spinner />
-    ) : (
-    <div className="weather-app-home">
-      <div className="weather-app-home__content">
-        <LabelTop cityData={cityData} cityWeather={currentWeather} errorMessage={errorMessage} fetchDataFn={fetchData} />
-        <ForecastList forecastList={forecast} />        
+  fetchData = () => {
+    axios.get(
+     `https://api.openweathermap.org/data/2.5/forecast?q=${process.env.REACT_APP_CITY}&appid=${process.env.REACT_APP_WEATHER_KEY}`
+   )
+    .then((result) => {
+      this.setState({
+        cityData: result.data.city,
+        errorMessage: '',
+        forecast: changeFormatDate(result.data.list),
+        currentWeather: (result.data.list).shift(),
+      })
+    })
+    .then(() => {
+      this.setState({
+        spinnerActive: false
+      })
+    })
+    .catch((error) => {
+      console.log(error.response);
+      this.setState({
+        errorMessage: `${error.response.data.message} request failed - displaying recent data`,
+      })
+    });
+  }
+
+  componentDidMount ()  {
+    this.fetchData()
+  }
+
+  render() {
+    const { cityData, currentWeather, errorMessage, forecast, spinnerActive } = this.state;
+
+    return (
+      <>
+      {spinnerActive ? (
+        <Spinner />
+      ) : (
+      <div className="weather-app-home">
+        <div className="weather-app-home__content">
+          <LabelTop cityData={cityData} cityWeather={currentWeather} errorMessage={errorMessage} fetchDataFn={this.fetchData} />
+          <ForecastList forecastList={forecast} />
+        </div>
       </div>
-    </div>
-    )}
-    </>
-  );
+      )}
+      </>
+    );
+  }
 }
 
 export default Home;
