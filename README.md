@@ -12,5 +12,5 @@ Data is refreshed every 1 minute if would be problem with fetching then it is di
 
 - go to app folder
 
-- `$ npm install`
-- `$ npm start`
+* `$ npm install`
+* `$ npm start`
