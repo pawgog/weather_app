@@ -14,3 +14,7 @@ Data is refreshed every 1 minute if would be problem with fetching then it is di
 
 * `$ npm install`
 * `$ npm start`
+
+### Site demo
+
+[React weather app demo](https://flamboyant-jones-094b5a.netlify.app/)
