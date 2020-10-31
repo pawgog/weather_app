@@ -1,42 +1,30 @@
 import { useEffect, useRef } from 'react';
 
 export const changeFormatDate = (value) => {
-  const getForecastDate = value.filter((val) => {
-    let forecastHour = new Date(val.datetime * 1000).getHours();
-    return forecastHour === 14;
-  });
-
-  const addDay = getForecastDate.map((val) => {
-    let forecastDate = new Date(val.datetime * 1000).getDay();
+  const addDay = (forecastDate) => {
     switch (forecastDate) {
       case 0:
-        val['day'] = 'Sun';
-        return val;
+        return 'Sun';
       case 1:
-        val['day'] = 'Mon';
-        return val;
+        return 'Mon';
       case 2:
-        val['day'] = 'Tue';
-        return val;
+        return 'Tue';
       case 3:
-        val['day'] = 'Wed';
-        return val;
+        return 'Wed';
       case 4:
-        val['day'] = 'Thu';
-        return val;
+        return 'Thu';
       case 5:
-        val['day'] = 'Fri';
-        return val;
+        return 'Fri';
       case 6:
-        val['day'] = 'Sat';
-        return val;
+        return 'Sat';
       default:
         break;
     }
-    return val;
-  });
+  };
 
-  return addDay;
+  const getDate = `${addDay(new Date(value).getDay())} ${value.split('-').reverse().join('/')}`;
+
+  return getDate;
 };
 
 export const changeTemperatureToCelsius = (temp) => {

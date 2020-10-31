@@ -1,17 +1,20 @@
 import React from 'react';
+import { changeFormatDate } from './Function';
 
 function ForecastList({ forecastList }) {
   return (
     <>
       {forecastList.map((data) => {
-        return <div className="weather-app-forecast" key={data.moonrise_ts}>
+        const { moonrise_ts, datetime, temp, weather } = data;
+
+        return <div className="weather-app-forecast" key={moonrise_ts}>
           <div className="weather-app-forecast__day">
-            <p>{data.datetime}</p>
-            <p>{data.temp}°C</p>
+            <p>{changeFormatDate(datetime)}</p>
+            <p>{temp}°C</p>
           </div>
           <div className="weather-app-forecast__weather">
-            <img src={`https://www.weatherbit.io/static/img/icons/${data.weather.icon}.png`} alt={data.weather.description}></img>
-            <p>{data.weather.description}</p>
+            <img src={`https://www.weatherbit.io/static/img/icons/${weather.icon}.png`} alt={weather.description}></img>
+            <p>{weather.description}</p>
           </div>
         </div>;
       })}
