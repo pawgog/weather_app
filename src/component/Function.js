@@ -2,12 +2,12 @@ import { useEffect, useRef } from 'react';
 
 export const changeFormatDate = (value) => {
   const getForecastDate = value.filter((val) => {
-    let forecastHour = new Date(val.dt * 1000).getHours();
+    let forecastHour = new Date(val.datetime * 1000).getHours();
     return forecastHour === 14;
   });
 
   const addDay = getForecastDate.map((val) => {
-    let forecastDate = new Date(val.dt * 1000).getDay();
+    let forecastDate = new Date(val.datetime * 1000).getDay();
     switch (forecastDate) {
       case 0:
         val['day'] = 'Sun';

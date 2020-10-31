@@ -1,22 +1,17 @@
 import React from 'react';
-import { changeTemperatureToCelsius } from './Function';
 
 function ForecastList({ forecastList }) {
   return (
     <>
-      {forecastList.map((weather) => {
-        return <div className="weather-app-forecast" key={weather.dt}>
+      {forecastList.map((data) => {
+        return <div className="weather-app-forecast" key={data.moonrise_ts}>
           <div className="weather-app-forecast__day">
-            <p>{weather.day}</p>
-            <p>{changeTemperatureToCelsius(weather.main.temp)}</p>
+            <p>{data.datetime}</p>
+            <p>{data.temp}°C</p>
           </div>
           <div className="weather-app-forecast__weather">
-            {weather.weather.map((val) => {
-              return <div key={val.id}>
-                  <img src={`http://openweathermap.org/img/wn/${val.icon}.png`} alt={val.main}></img>
-                  <p>{val.description}</p>
-                </div>
-            })}
+            <img src={`https://www.weatherbit.io/static/img/icons/${data.weather.icon}.png`} alt={data.weather.description}></img>
+            <p>{data.weather.description}</p>
           </div>
         </div>;
       })}
