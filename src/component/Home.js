@@ -3,6 +3,7 @@ import axios from 'axios';
 import LabelTop from './LabelTop';
 import ForecastList from './ForecastList';
 import Spinner from './Spinner'
+import { changeFormatDate } from './Function';
 import '../styles/_index.scss';
 
 class Home extends Component {
@@ -16,14 +17,14 @@ class Home extends Component {
 
   fetchData = () => {
     axios.get(
-      `http://api.weatherbit.io/v2.0/forecast/daily?city=${process.env.REACT_APP_CITY}&country=${process.env.REACT_APP_COUNTRY}&key=${process.env.REACT_APP_WEATHER_KEY}`
+     `https://api.openweathermap.org/data/2.5/forecast?q=${process.env.REACT_APP_CITY}&appid=${process.env.REACT_APP_WEATHER_KEY}`
    )
     .then((result) => {
-      const { data, city_name } = result.data;
       this.setState({
-        cityData: city_name,
-        forecast: data,
-        currentWeather: (data).shift(),
+        cityData: result.data.city,
+        errorMessage: '',
+        forecast: changeFormatDate(result.data.list),
+        currentWeather: (result.data.list).shift(),
       })
     })
     .then(() => {

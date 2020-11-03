@@ -1,20 +1,22 @@
 import React from 'react';
-import { changeFormatDate } from './Function';
+import { changeTemperatureToCelsius } from './Function';
 
 function ForecastList({ forecastList }) {
   return (
     <>
-      {forecastList.map((data) => {
-        const { moonrise_ts, datetime, temp, weather } = data;
-
-        return <div className="weather-app-forecast" key={moonrise_ts}>
+      {forecastList.map((weather) => {
+        return <div className="weather-app-forecast" key={weather.dt}>
           <div className="weather-app-forecast__day">
-            <p>{changeFormatDate(datetime)}</p>
-            <p>{temp}°C</p>
+            <p>{weather.day}</p>
+            <p>{changeTemperatureToCelsius(weather.main.temp)}</p>
           </div>
           <div className="weather-app-forecast__weather">
-            <img src={`https://www.weatherbit.io/static/img/icons/${weather.icon}.png`} alt={weather.description}></img>
-            <p>{weather.description}</p>
+            {weather.weather.map((val) => {
+              return <div key={val.id}>
+                  <img src={`http://openweathermap.org/img/wn/${val.icon}.png`} alt={val.main}></img>
+                  <p>{val.description}</p>
+                </div>
+            })}
           </div>
         </div>;
       })}

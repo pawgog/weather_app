@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { useInterval } from './Function';
+import { changeTemperatureToCelsius, useInterval } from './Function';
 
 function LabelTop({ cityData, cityWeather, errorMessage, fetchDataFn }) {
   const [currentHour, setCurrentHour] = useState();
   const [progressMinute, setProgressMinute] = useState(60);
   const [progressValue, setProgress] = useState(0);
-  const progressBar = {width: `${progressValue}%`};
-  const currentTemperature = cityWeather.temp;
+  const progressBar = {width: `${progressValue}%`}
+  const currentTemperature = changeTemperatureToCelsius(cityWeather.main.temp)
 
   useInterval(() => {
   let oneMinute = 0
@@ -29,9 +29,9 @@ function LabelTop({ cityData, cityWeather, errorMessage, fetchDataFn }) {
     <div className="weather-app-label">
       <div className="weather-app-label__content">
         <div className="weather-app-label__city-detail">
-          <div>{ cityData }</div>
+          <div>{ cityData.name }</div>
           <div>{ currentHour }</div>
-          <div>{ currentTemperature }°C</div>
+          <div>{ currentTemperature }</div>
         </div>
         <div className="weather-app-label__progress-bar">
           <span>Reloading in {progressMinute}s</span>
