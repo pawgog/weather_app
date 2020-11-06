@@ -17,4 +17,4 @@ Data is refreshed every 1 minute if would be problem with fetching then it is di
 
 ### Site demo
 
-[React weather app demo](https://flamboyant-jones-094b5a.netlify.app/)
+[React weather app demo](https://weather-app-api320.netlify.app/)
