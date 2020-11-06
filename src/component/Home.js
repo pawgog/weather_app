@@ -20,11 +20,12 @@ class Home extends Component {
      `https://api.openweathermap.org/data/2.5/forecast?q=${process.env.REACT_APP_CITY}&appid=${process.env.REACT_APP_WEATHER_KEY}`
    )
     .then((result) => {
+      const { city, list } = result.data;
       this.setState({
-        cityData: result.data.city,
+        cityData: city !== undefined ? city : '',
         errorMessage: '',
-        forecast: changeFormatDate(result.data.list),
-        currentWeather: (result.data.list).shift(),
+        forecast: list !== undefined ? changeFormatDate(list) : [],
+        currentWeather: list !== undefined ? (list).shift() : [],
       })
     })
     .then(() => {

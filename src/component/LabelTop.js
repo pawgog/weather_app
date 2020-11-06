@@ -22,7 +22,7 @@ function LabelTop({ cityData, cityWeather, errorMessage, fetchDataFn }) {
 
   setInterval(() => {
     const date = new Date()
-    setCurrentHour(`${date.getHours() < 10 ? '0' : ''}${date.getHours()}:${date.getMinutes() < 10 ? '0' : ''}${date.getMinutes()} GMT`)
+    setCurrentHour(`${date.getHours() < 10 ? '0' : ''}${date.getHours()}:${date.getMinutes() < 10 ? '0' : ''}${date.getMinutes()}`)
   }, 1000);
 
   return (

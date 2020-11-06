@@ -2,8 +2,8 @@ import { useEffect, useRef } from 'react';
 
 export const changeFormatDate = (value) => {
   const getForecastDate = value.filter((val) => {
-    let forecastHour = new Date(val.dt * 1000).getHours();
-    return forecastHour === 14;
+    let forecastHour = new Date(val.dt_txt).getHours();
+    return forecastHour === 12;
   });
 
   const addDay = getForecastDate.map((val) => {
