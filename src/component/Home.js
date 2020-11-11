@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import LabelTop from './LabelTop';
 import ForecastList from './ForecastList';
+import SelectCity from './SelectCity';
 import Spinner from './Spinner'
 import { changeFormatDate } from './Function';
 import '../styles/_index.scss';
@@ -56,6 +57,7 @@ class Home extends Component {
       <div className="weather-app-home">
         <div className="weather-app-home__content">
           <LabelTop cityData={cityData} cityWeather={currentWeather} errorMessage={errorMessage} fetchDataFn={this.fetchData} />
+          <SelectCity />
           <ForecastList forecastList={forecast} />
         </div>
       </div>
