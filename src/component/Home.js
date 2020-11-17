@@ -9,6 +9,7 @@ import '../styles/_index.scss';
 
 class Home extends Component {
   state = {
+    city: 'London',
     cityData: {},
     currentWeather: {},
     forecast: [],
@@ -18,15 +19,15 @@ class Home extends Component {
 
   fetchData = () => {
     axios.get(
-     `https://api.openweathermap.org/data/2.5/forecast?q=${process.env.REACT_APP_CITY}&appid=${process.env.REACT_APP_WEATHER_KEY}`
+     `https://api.openweathermap.org/data/2.5/forecast?q=${this.state.city}&appid=${process.env.REACT_APP_WEATHER_KEY}`
    )
     .then((result) => {
       const { city, list } = result.data;
       this.setState({
-        cityData: city !== undefined ? city : '',
+        cityData: typeof city === 'undefined' ? '' : city,
         errorMessage: '',
-        forecast: list !== undefined ? changeFormatDate(list) : [],
-        currentWeather: list !== undefined ? (list).shift() : [],
+        forecast: typeof list === 'undefined' ? [] : changeFormatDate(list),
+        currentWeather: typeof list === 'undefined' ? [] : (list).shift(),
       })
     })
     .then(() => {
@@ -43,11 +44,20 @@ class Home extends Component {
   }
 
   componentDidMount ()  {
-    this.fetchData()
+    this.fetchData();
+  }
+
+  selectCity = (e) => {
+    const cityName = e.value;
+    this.setState({
+      city: cityName
+    }, () => {
+      this.fetchData();
+    });
   }
 
   render() {
-    const { cityData, currentWeather, errorMessage, forecast, spinnerActive } = this.state;
+    const { city, cityData, currentWeather, errorMessage, forecast, spinnerActive } = this.state;
 
     return (
       <>
@@ -56,8 +66,8 @@ class Home extends Component {
       ) : (
       <div className="weather-app-home">
         <div className="weather-app-home__content">
-          <LabelTop cityData={cityData} cityWeather={currentWeather} errorMessage={errorMessage} fetchDataFn={this.fetchData} />
-          <SelectCity />
+          <LabelTop city={city} cityData={cityData} cityWeather={currentWeather} errorMessage={errorMessage} fetchDataFn={this.fetchData} />
+          <SelectCity selectCity={this.selectCity} />
           <ForecastList forecastList={forecast} />
         </div>
       </div>

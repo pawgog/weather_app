@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { changeTemperatureToCelsius, useInterval } from './Function';
 
-function LabelTop({ cityData, cityWeather, errorMessage, fetchDataFn }) {
+function LabelTop({ city, cityWeather, errorMessage, fetchDataFn }) {
   const [currentHour, setCurrentHour] = useState();
   const [progressMinute, setProgressMinute] = useState(60);
   const [progressValue, setProgress] = useState(0);
@@ -29,7 +29,7 @@ function LabelTop({ cityData, cityWeather, errorMessage, fetchDataFn }) {
     <div className="weather-app-label">
       <div className="weather-app-label__content">
         <div className="weather-app-label__city-detail">
-          <div>{ cityData.name }</div>
+          <div>{ city }</div>
           <div>{ currentHour }</div>
           <div>{ currentTemperature }</div>
         </div>
